@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for(:title) || "Map Pin App" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%# Favicon %>
+    <%= favicon_link_tag "favicon.ico", rel: 'icon', type: 'image/x-icon' %>
+
+    <%# Stylesheets %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    
+    <%# Leaflet CSS from CDN %>
+    <link rel="stylesheet" 
+          href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" 
+          crossorigin="anonymous"/>
+
+    <%# JavaScript %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+  </head>
+
+  <body class="bg-gray-50">
+    <%# Navigation Bar %>
+    <header class="bg-white shadow-sm">
+      <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+        <div class="text-xl font-bold text-blue-600">Map Pin App</div>
+        <div>
+          <% if user_signed_in? %>
+            <%= button_to "Log Out", destroy_user_session_path, method: :delete, 
+                class: "text-red-600 hover:text-red-800 bg-transparent border-none cursor-pointer" %>
+          <% else %>
+            <%= link_to "Log In", new_user_session_path, class: "text-blue-600 hover:text-blue-800" %>
+          <% end %>
+        </div>
+      </nav>
+    </header>
+
+    <%# Flash messages %>
+    <% if notice %>
+      <div class="notice bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        <%= notice %>
+      </div>
+    <% end %>
+    
+    <% if alert %>
+      <div class="alert bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+        <%= alert %>
+      </div>
+    <% end %>
+
+    <main class="container mx-auto px-4 py-8">
+      <%= yield %>
+    </main>
+
+    <%# Footer %>
+    <footer class="mt-8 border-t border-gray-200 py-4 text-center text-sm text-gray-600">
+      <p>&copy; <%= Time.current.year %> Map Pin App</p>
+    </footer>
+
+    <%# Leaflet marker images workaround %>
+    <div style="display:none;">
+      <img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png" alt="Marker">
+      <img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon-2x.png" alt="Marker Retina">
+      <img src="https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png" alt="Marker Shadow">
+    </div>
+  </body>
+</html>
