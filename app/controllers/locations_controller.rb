@@ -6,7 +6,14 @@ class LocationsController < ApplicationController
       @locations = Location.all
       render json: @locations.as_json(only: [:id, :name], methods: [:latitude, :longitude])
     end
-  
+    
+    def index
+      render inertia: 'Locations/Index',  # Matches your React component file name
+             props: {
+               locations: Location.all.as_json(only: [:id, :name, :latitude, :longitude])
+             }
+    end
+    
     def create
       @location = current_user.locations.create!(location_params)
       redirect_to root_path, notice: 'Location added successfully'
@@ -17,4 +24,5 @@ class LocationsController < ApplicationController
     def location_params
       params.require(:location).permit(:name, :latitude, :longitude)
     end
+
   end

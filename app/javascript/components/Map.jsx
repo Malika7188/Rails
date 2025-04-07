@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import L from 'leaflet'
+import '../../stylesheets/map.css'; // Your custom CSS
 
 const Map = ({ locations = [] }) => {
   useEffect(() => {

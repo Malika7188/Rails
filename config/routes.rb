@@ -2,14 +2,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  authenticated :user do
-    root to: "dashboard#index", as: :authenticated_root
-  end
+  # Make sure this line exists exactly like this:
+  root to: "dashboard#index"  # This is your primary fix
 
-  unauthenticated do
-    root to: "home#index", as: :unauthenticated_root
-  end
-
-  # Optional: for admin dashboard or manual testing
+  # Your other routes
   get "dashboard", to: "dashboard#index"
+  get '/locations', to: 'locations#index'
 end

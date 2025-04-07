@@ -1,3 +1,9 @@
-const { environment } = require('@rails/webpacker')
+const { environment } = require('@rails/webpacker');
 
-module.exports = environment
+// Add this for CSS support
+environment.loaders.append('css', {
+  test: /\.css$/,
+  use: ['style-loader', 'css-loader'],
+});
+
+module.exports = environment;
