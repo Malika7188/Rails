@@ -6,12 +6,17 @@ Rails.application.routes.draw do
     root to: "dashboard#index", as: :authenticated_root
   end
 
-  # For unauthenticated users (optional - could redirect to login)
+  # For unauthenticated users
   root to: "dashboard#index"  # Shows dashboard to all users
-  # OR if you want to redirect to login:
-  # root to: redirect("/users/sign_in")
 
-  # Other routes
+  # Regular routes
   get "dashboard", to: "dashboard#index"
   get '/locations', to: 'locations#index'
+
+  # Admin namespace routes
+  namespace :admin do
+    resources :users, only: [:index, :destroy] do
+      post :toggle_admin, on: :member
+    end
+  end
 end

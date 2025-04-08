@@ -8,6 +8,11 @@ module.exports = {
     extend: {
       colors: {
         'map-pin-blue': '#2563eb',
+        danger: {
+          100: '#fee2e2',
+          600: '#dc2626',
+          700: '#b91c1c'
+        }
       }
     },
   },
