@@ -2,6 +2,7 @@
 import '@hotwired/turbo-rails'
 import * as ActiveStorage from '@rails/activestorage'
 import 'controllers'
+import '../stylesheets/tailwind.css'
 
 // Leaflet initialization
 import 'leaflet/dist/leaflet.css'

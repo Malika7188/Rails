@@ -1,11 +1,17 @@
-# config/routes.rb
 Rails.application.routes.draw do
   devise_for :users
 
-  # Make sure this line exists exactly like this:
-  root to: "dashboard#index"  # This is your primary fix
+  # For authenticated users
+  authenticated :user do
+    root to: "dashboard#index", as: :authenticated_root
+  end
 
-  # Your other routes
+  # For unauthenticated users (optional - could redirect to login)
+  root to: "dashboard#index"  # Shows dashboard to all users
+  # OR if you want to redirect to login:
+  # root to: redirect("/users/sign_in")
+
+  # Other routes
   get "dashboard", to: "dashboard#index"
   get '/locations', to: 'locations#index'
 end
